@@ -51,9 +51,9 @@ const rockPaperScissors = (hand1, hand2) => {
 // to run the function use the command: node main.js
 // to close it ctrl + C
 const getPrompt= () => {
-  rl.question('hand1: ', (answer1) => {
-    rl.question('hand2: ', (answer2) => {
-      console.log( rockPaperScissors(answer1, answer2) );
+  rl.question('hand1: ', (hand1) => {
+    rl.question('hand2: ', (hand2) => {
+      console.log( rockPaperScissors(hand1, hand2) );
       getPrompt();
     });
   });
