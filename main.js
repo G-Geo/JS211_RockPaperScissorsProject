@@ -11,36 +11,33 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const user1Victory = "User 1 Wins!"
-
-const user2Victory = "User 2 Wins!"
-
-const drawGame = "It's a draw!"
 
 // the function that will be called by the unit test below
 const rockPaperScissors = (hand1, hand2) => {
 
-  hand1 = hand1.trim()
-  hand2=hand2.trim()
+  hand1 = hand1.trim();
+  hand2 = hand2.trim();
+  hand1 = hand1.toLowerCase();
+  hand2 = hand2.toLowerCase();
   
   if ((hand1 === "rock")&&(hand2 ==="paper")){ 
-    console.log(user2Victory)
+  return ("Hand two wins!")
   } else if ((hand1 === "rock")&&(hand2 === "scissors")) {
-    console.log(user1Victory)
+    return ("Hand one wins!")
   } else if ((hand1 === "paper")&&(hand2 === "scissors")){
-    console.log(user2Victory)
+  return ("Hand two wins!")
   } else if ((hand1 === "paper")&&(hand2 === "rock")) {
-    console.log(user1Victory)
+    return ("Hand one wins!")
   } else if ((hand1 === "scissors")&&(hand2 === "paper")) {
-    console.log(user1Victory)
+    return ("Hand one wins!")
   } else if ((hand1 === "scissors")&&(hand2 === "rock")) {
-    console.log(user2Victory)
+   return ("Hand two wins!")
   } else if ((hand1 === "rock")&&(hand2 === "rock")){
-    console.log(drawGame)
+   return ("It's a tie!")
   } else if ((hand1 === "paper")&&(hand2 === "paper")){
-    console.log(drawGame)
+    return ("It's a tie!")
   } else if ((hand1 === "scissors")&&(hand2 === "scissors")){
-    console.log(drawGame)
+    return ("It's a tie!")
 } else {
   console.log("Input invalid. Try 'rock' 'paper' or 'scissors'")
 }
@@ -59,6 +56,32 @@ const getPrompt= () => {
   });
 }
 
-  // always returns ask the user for another input
-  getPrompt()
+// Unit Tests
+// You use them run the command: npm test main.js
+// to close them ctrl + C
+if (typeof describe === 'function') {
 
+  // most are notes for human eyes to read, but essentially passes in inputs then compares if the function you built return the expected output.
+  describe('#rockPaperScissors()', () => {
+    it('should detect a tie', () => {
+      assert.equal(rockPaperScissors('rock', 'rock'), "It's a tie!");
+      assert.equal(rockPaperScissors('paper', 'paper'), "It's a tie!");
+      assert.equal(rockPaperScissors('scissors', 'scissors'), "It's a tie!");
+    });
+    it('should detect which hand won', () => {
+      assert.equal(rockPaperScissors('rock', 'paper'), "Hand two wins!");
+      assert.equal(rockPaperScissors('paper', 'scissors'), "Hand two wins!");
+      assert.equal(rockPaperScissors('rock', 'scissors'), "Hand one wins!");
+    });
+    it('should scrub input to ensure lowercase with "trim"ed whitepace', () => {
+      assert.equal(rockPaperScissors('rOcK', ' paper '), "Hand two wins!");
+      assert.equal(rockPaperScissors('Paper', 'SCISSORS'), "Hand two wins!");
+      assert.equal(rockPaperScissors('rock ', 'sCiSsOrs'), "Hand one wins!");
+    });
+  });
+} else {
+
+  // always returns ask the user for another input
+  getPrompt();
+
+}
